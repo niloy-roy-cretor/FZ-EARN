@@ -1,6 +1,6 @@
 // ===== মূল সেটিংস (সহজেই পরিবর্তন করতে পারবেন) =====
-const DAILY_BONUS_POINTS = 10;  // ডেইলি বোনাস পয়েন্ট
-const MIN_WITHDRAW = 300;       // সর্বনিম্ন Withdraw পয়েন্ট
+const DAILY_BONUS_TAKA = 10;    // ডেইলি বোনাস টাকা
+const MIN_WITHDRAW = 300;       // সর্বনিম্ন Withdraw টাকা
 const MIN_REFER = 10;           // সর্বনিম্ন প্রয়োজনীয় রেফার
 
 const tg = window.Telegram ? window.Telegram.WebApp : null;
@@ -9,8 +9,11 @@ if (tg) { tg.ready(); tg.expand(); }
 const q = new URLSearchParams(window.location.search);
 if (q.get("uid")) localStorage.setItem("fz_uid", q.get("uid"));
 const tgUser = (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) ? tg.initDataUnsafe.user : null;
+if (tgUser && tgUser.first_name) localStorage.setItem("fz_uname", tgUser.first_name);
+
 const fallbackId = q.get("uid") || localStorage.getItem("fz_uid") || "Demo";
-const user = tgUser ? tgUser : { first_name: "Member", id: fallbackId };
+const fallbackName = q.get("uname") || localStorage.getItem("fz_uname") || "Member";
+const user = tgUser ? tgUser : { first_name: fallbackName, id: fallbackId };
 document.getElementById("userBadge").innerText = user.first_name + " (" + user.id + ")";
 
 if (q.get("bot")) localStorage.setItem("fz_bot", q.get("bot"));
@@ -43,8 +46,8 @@ function notify(msg) {
   toastTimer = setTimeout(() => { t.style.display = "none"; }, 3500);
 }
 
-function addBal(pts) {
-  bal += pts;
+function addBal(amt) {
+  bal += amt;
   localStorage.setItem("fz_bal_" + user.id, bal);
   document.getElementById("bal").innerText = bal;
 }
@@ -63,8 +66,8 @@ function claimBonus() {
     return notify("⏳ আজকের বোনাস ইতিমধ্যে নিয়েছেন! ২৪ ঘণ্টা পর আবার চেষ্টা করুন।");
   }
   localStorage.setItem("fz_last_" + user.id, now);
-  addBal(DAILY_BONUS_POINTS);
-  notify("🎉 সফল! +" + DAILY_BONUS_POINTS + " পয়েন্ট Daily Bonus যোগ হয়েছে।");
+  addBal(DAILY_BONUS_TAKA);
+  notify("🎉 সফল! +৳" + DAILY_BONUS_TAKA + " টাকা Daily Bonus যোগ হয়েছে।");
 }
 
 function copyRef() {
@@ -86,7 +89,7 @@ function copyRef() {
 }
 
 function shareRef() {
-  const url = "https://t.me/share/url?url=" + encodeURIComponent(refLink) + "&text=" + encodeURIComponent("⚡ FZ ERAN Mini App থেকে প্রতিদিন আয় করুন!");
+  const url = "https://t.me/share/url?url=" + encodeURIComponent(refLink) + "&text=" + encodeURIComponent("⚡ FZ ERAN Mini App থেকে প্রতিদিন টাকা আয় করুন!");
   if (tg) tg.openTelegramLink(url); else window.open(url, "_blank");
 }
 
@@ -100,7 +103,7 @@ function setMethod(m) {
 function submitWithdraw() {
   const num = document.getElementById("wdNum").value.trim();
   if (bal < MIN_WITHDRAW) {
-    return notify("❌ Withdraw করতে কমপক্ষে " + MIN_WITHDRAW + " পয়েন্ট প্রয়োজন।");
+    return notify("❌ Withdraw করতে কমপক্ষে ৳" + MIN_WITHDRAW + " টাকা প্রয়োজন।");
   }
   if (refCount < MIN_REFER) {
     return notify("❌ Withdraw করতে কমপক্ষে " + MIN_REFER + "টি রেফার প্রয়োজন (আছে " + refCount + " জন)।");
