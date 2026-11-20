@@ -5,59 +5,60 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>FZ ERAN</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <link rel="stylesheet" href="style.css?v=3" />
+  <link rel="stylesheet" href="style.css?v=4" />
 </head>
 <body>
+  <div id="welcomeRoot"></div>
+  <script src="welcome.js?v=4"></script>
+
   <div class="toast" id="toast"></div>
 
-  <div class="welcome-screen" id="welcomeScreen">
-    <div class="w-logo">
-      <svg width="54" height="54" viewBox="0 0 24 24" fill="none">
-        <path d="M13 2L4 14h7l-1 8 10-12h-7l0-8z" fill="#fbbf24" stroke="#fef3c7" stroke-width="1.2" stroke-linejoin="round"/>
-      </svg>
-    </div>
-    <div class="w-brand">FZ ERAN</div>
-    <div class="w-hello">স্বাগতম, <span id="wUserName">বন্ধু</span>! 👋</div>
-    <div class="w-sub">সহজ কাজ করে প্রতিদিন পয়েন্ট আয় করুন</div>
-    <div class="w-list">
-      🎁 ডেইলি ফ্রি বোনাস: <b>+১০ পয়েন্ট</b><br>
-      🎡 লাকি স্পিন হুইল: <b>+২০ পর্যন্ত পয়েন্ট</b><br>
-      📺 বিজ্ঞাপন দেখে আয়: <b>+৫ পয়েন্ট</b><br>
-      💳 পেমেন্ট: <b>বিকাশ ও নগদ (৩০০ পয়েন্ট + ১০ রেফার)</b>
-    </div>
-    <button class="btn btn-gold w-enter" onclick="enterApp()">🚀 কাজ শুরু করুন</button>
-  </div>
-
   <div class="topbar">
-    <div class="brand">⚡ FZ ERAN</div>
+    <div class="brand-wrap">
+      <div class="mini-logo">
+        <img src="logo.png" alt="FZ" onerror="this.style.display='none';document.getElementById('miniFallback').style.display='inline';" />
+        <span id="miniFallback" style="display:none;">FZ</span>
+      </div>
+      <div class="brand">FZ ERAN</div>
+    </div>
     <div class="badge" id="userBadge">Loading...</div>
   </div>
 
   <div class="bal-card">
     <small>আপনার বর্তমান ব্যালেন্স</small>
-    <h1><span id="bal">0</span> পয়েন্ট</h1>
+    <h1>৳ <span id="bal">0</span> টাকা</h1>
   </div>
 
   <div id="tab-home" class="tab-page active">
     <div class="card">
-      <h3>🎁 ডেইলি বোনাস</h3>
-      <p style="font-size:13px;color:#94a3b8;">প্রতি ২৪ ঘণ্টায় একবার ফ্রি +১০ পয়েন্ট সংগ্রহ করুন।</p>
-      <button class="btn btn-blue" onclick="claimBonus()">Daily Bonus নিন (+10)</button>
+      <div class="card-head">
+        <h3>🎁 ডেইলি বোনাস</h3>
+        <span class="pill">+৳১০ টাকা</span>
+      </div>
+      <p class="muted">প্রতি ২৪ ঘণ্টায় একবার ফ্রি বোনাস সংগ্রহ করুন।</p>
+      <button class="btn btn-blue" onclick="claimBonus()">Daily Bonus নিন (+৳১০)</button>
     </div>
+
     <div class="card">
-      <h3>📺 Watch Ads &amp; Earn</h3>
-      <p style="font-size:13px;color:#94a3b8;">বিজ্ঞাপন দেখে +৫ পয়েন্ট আয় করুন (আজ বাকি: <b id="adsLeft">15</b> টি)।</p>
-      <button class="btn btn-purple" id="adBtn" onclick="watchAd()">বিজ্ঞাপন দেখুন (+5)</button>
+      <div class="card-head">
+        <h3>📺 Watch Ads &amp; Earn</h3>
+        <span class="pill">+৳৫ টাকা</span>
+      </div>
+      <p class="muted">বিজ্ঞাপন দেখে আয় করুন (আজ বাকি: <b id="adsLeft">15</b> টি)।</p>
+      <button class="btn btn-purple" id="adBtn" onclick="watchAd()">বিজ্ঞাপন দেখুন (+৳৫)</button>
     </div>
   </div>
 
   <div id="tab-spin" class="tab-page">
     <div class="card" style="text-align:center;">
-      <h3>🎡 Lucky Spin Wheel</h3>
-      <p style="font-size:13px;color:#94a3b8;">আজ স্পিন বাকি আছে: <b id="spinsLeft">5</b> টি</p>
+      <div class="card-head">
+        <h3>🎡 Classic Lucky Spin</h3>
+        <span class="pill">দৈনিক ১টি</span>
+      </div>
+      <p class="muted">আজ স্পিন বাকি আছে: <b id="spinsLeft">1</b> টি</p>
       <div class="wheel-wrap">
         <div class="pointer">▼</div>
-        <canvas id="wheelCanvas" width="280" height="280"></canvas>
+        <canvas id="wheelCanvas" width="340" height="340"></canvas>
       </div>
       <button class="btn btn-gold" id="spinBtn" onclick="startSpin()">🎡 চাকা ঘোরান</button>
     </div>
@@ -65,10 +66,13 @@
 
   <div id="tab-refer" class="tab-page">
     <div class="card">
-      <h3>👥 রেফার করে আয় করুন</h3>
-      <p style="font-size:13px;color:#94a3b8;line-height:1.5;">
-        প্রতি সফল রেফারে পাবেন <b>+১৫ পয়েন্ট</b>।<br>
-        মোট রেফার: <b id="refCountTxt" style="color:#fbbf24;">0</b> জন (Withdraw-এর জন্য প্রয়োজন ১০ জন)।
+      <div class="card-head">
+        <h3>👥 রেফার করে আয় করুন</h3>
+        <span class="pill">+৳১৫ / রেফার</span>
+      </div>
+      <p class="muted">
+        প্রতি সফল রেফারে পাবেন <b>+৳১৫ টাকা</b>।<br>
+        আপনার মোট রেফার: <b id="refCountTxt" style="color:#fbbf24;">0</b> জন
       </p>
       <input type="text" id="refLinkBox" readonly />
       <button class="btn btn-blue" onclick="copyRef()">📋 রেফার লিংক কপি করুন</button>
@@ -78,10 +82,13 @@
 
   <div id="tab-withdraw" class="tab-page">
     <div class="card">
-      <h3>💳 Withdraw (বিকাশ / নগদ)</h3>
-      <p style="font-size:13px;color:#94a3b8;line-height:1.5;">
-        সর্বনিম্ন Withdraw: <b>৩০০ পয়েন্ট</b> এবং <b>১০টি রেফার</b>।<br>
-        আপনার রেফার: <b id="wdRefTxt">0</b>/10 জন
+      <div class="card-head">
+        <h3>💳 Withdraw (বিকাশ / নগদ)</h3>
+        <span class="pill">মিনিমাম ৳৩০০</span>
+      </div>
+      <p class="muted">
+        • সর্বনিম্ন Withdraw: <b>৳৩০০ টাকা</b><br>
+        • আপনার রেফার: <b id="wdRefTxt">0</b>/10 জন
       </p>
       <div class="method-row">
         <button class="m-btn active" id="mBkash" onclick="setMethod('bKash')">📱 bKash</button>
@@ -89,7 +96,7 @@
       </div>
       <label style="font-size:13px;color:#cbd5e1;">আপনার ১১ ডিজিটের নম্বর:</label>
       <input type="tel" id="wdNum" maxlength="11" placeholder="017XXXXXXXX" />
-      <button class="btn btn-gold" onclick="submitWithdraw()">Withdraw রিকোয়েস্ট পাঠান (300)</button>
+      <button class="btn btn-gold" onclick="submitWithdraw()">Withdraw রিকোয়েস্ট পাঠান (৳৩০০)</button>
     </div>
   </div>
 
@@ -100,8 +107,8 @@
     <button onclick="openTab('withdraw', this)"><span class="ic">💳</span>Withdraw</button>
   </div>
 
-  <script src="app.js?v=3"></script>
-  <script src="ads.js?v=3"></script>
-  <script src="spin.js?v=3"></script>
+  <script src="app.js?v=4"></script>
+  <script src="ads.js?v=4"></script>
+  <script src="spin.js?v=4"></script>
 </body>
 </html>
