@@ -1,4 +1,3 @@
-
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
 body { background: #090f1d; color: #f8fafc; padding: 14px 14px 84px; min-height: 100vh; }
 .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
@@ -28,4 +27,12 @@ input { width: 100%; padding: 12px; border-radius: 12px; border: 1px solid #2938
 .nav button { background: none; border: none; color: #94a3b8; font-size: 11px; font-weight: 600; display: flex; flex-direction: column; align-items: center; gap: 3px; cursor: pointer; }
 .nav button span.ic { font-size: 19px; }
 .nav button.active { color: #fbbf24; }
-.toast { position: fixed; top: 14px; left: 14px; right: 14px; background: #1e293b; border-left: 4px solid #fbbf24; padding: 12px; border-radius: 12px; font-size: 13px; display: none; z-index: 20; box-shadow: 0 8px 24px rgba(0,0,0,0.5); }
+.toast { position: fixed; top: 14px; left: 14px; right: 14px; background: #1e293b; border-left: 4px solid #fbbf24; padding: 12px; border-radius: 12px; font-size: 13px; display: none; z-index: 60; box-shadow: 0 8px 24px rgba(0,0,0,0.5); }
+.welcome-screen { position: fixed; inset: 0; background: radial-gradient(circle at top, #13254a, #070b16 70%); z-index: 50; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 24px; text-align: center; overflow-y: auto; transition: opacity 0.35s ease, visibility 0.35s ease; }
+.welcome-screen.hide { opacity: 0; visibility: hidden; pointer-events: none; }
+.w-logo { width: 96px; height: 96px; border-radius: 26px; background: linear-gradient(135deg, #065f46, #059669); border: 2px solid #fbbf24; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 32px rgba(251,191,36,0.35); margin-bottom: 16px; }
+.w-brand { font-size: 26px; font-weight: 900; color: #fbbf24; letter-spacing: 1px; margin-bottom: 6px; }
+.w-hello { font-size: 18px; font-weight: 700; color: #ffffff; margin-bottom: 6px; }
+.w-sub { font-size: 13px; color: #94a3b8; margin-bottom: 20px; }
+.w-list { width: 100%; max-width: 340px; background: rgba(17,26,46,0.9); border: 1px solid #1e2d4d; border-radius: 16px; padding: 14px; text-align: left; font-size: 13px; color: #cbd5e1; line-height: 1.9; margin-bottom: 22px; }
+.w-enter { max-width: 340px; padding: 15px; font-size: 16px; border-radius: 14px; box-shadow: 0 8px 22px rgba(245,158,11,0.35); }
