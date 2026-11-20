@@ -11,24 +11,26 @@
 
   const style = document.createElement("style");
   style.textContent = `
-    .w-overlay { position: fixed; inset: 0; background: radial-gradient(circle at 50% -10%, #123154 0%, #060b17 65%, #04070f 100%); z-index: 999; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 22px 18px; text-align: center; overflow-y: auto; transition: opacity 0.35s ease, transform 0.35s ease, visibility 0.35s ease; }
+    .w-overlay { position: fixed; inset: 0; background: radial-gradient(circle at 50% 0%, #1c1917 0%, #090b10 55%, #040507 100%); z-index: 999; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px 16px; text-align: center; overflow-y: auto; transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s ease; }
     .w-overlay.hide { opacity: 0; transform: scale(1.03); visibility: hidden; pointer-events: none; }
-    .w-glow-bg { position: fixed; top: -80px; left: 50%; transform: translateX(-50%); width: 280px; height: 280px; background: radial-gradient(circle, rgba(16,185,129,0.22), transparent 70%); pointer-events: none; }
-    .w-ring { padding: 4px; border-radius: 30px; background: linear-gradient(135deg, #fbbf24, #10b981, #38bdf8); box-shadow: 0 0 36px rgba(251,191,36,0.3); margin-bottom: 14px; animation: wPulse 2.5s infinite alternate; position: relative; z-index: 1; }
-    @keyframes wPulse { from { box-shadow: 0 0 22px rgba(251,191,36,0.25); } to { box-shadow: 0 0 42px rgba(16,185,129,0.45); } }
-    .w-logo { width: 92px; height: 92px; border-radius: 26px; background: #091526; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .w-frame { width: 100%; max-width: 360px; background: linear-gradient(180deg, rgba(24,24,27,0.92), rgba(9,11,16,0.96)); border: 1px solid rgba(212,175,55,0.42); border-radius: 26px; padding: 24px 18px 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.75), inset 0 1px 0 rgba(252,246,186,0.2); position: relative; }
+    .w-crest { display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: 1.6px; color: #f3e5ab; border: 1px solid rgba(212,175,55,0.45); background: rgba(212,175,55,0.1); padding: 4px 14px; border-radius: 999px; margin-bottom: 14px; }
+    .w-ring { width: 98px; height: 98px; margin: 0 auto 14px; padding: 3px; border-radius: 50%; background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #aa771c); box-shadow: 0 0 28px rgba(212,175,55,0.35); }
+    .w-logo { width: 100%; height: 100%; border-radius: 50%; background: #0c0f16; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 2px solid #090b10; }
     .w-logo img { width: 100%; height: 100%; object-fit: cover; }
-    .w-pill { font-size: 10px; font-weight: 800; color: #34d399; background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.35); padding: 4px 12px; border-radius: 999px; margin-bottom: 8px; letter-spacing: 0.8px; }
-    .w-brand { font-size: 30px; font-weight: 900; background: linear-gradient(90deg, #fbbf24, #fef08a); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 4px; }
-    .w-hello { font-size: 19px; font-weight: 700; color: #ffffff; margin-bottom: 4px; }
-    .w-sub { font-size: 13px; color: #94a3b8; margin-bottom: 18px; }
-    .w-cards { width: 100%; max-width: 345px; display: grid; gap: 9px; margin-bottom: 20px; }
-    .w-card { display: flex; align-items: center; gap: 12px; background: rgba(15,23,42,0.85); border: 1px solid #1e2d4d; border-radius: 14px; padding: 11px 14px; text-align: left; }
-    .w-ic { width: 38px; height: 38px; border-radius: 11px; background: rgba(251,191,36,0.12); border: 1px solid rgba(251,191,36,0.25); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
-    .w-card b { display: block; font-size: 13px; color: #f8fafc; margin-bottom: 1px; }
-    .w-card span { font-size: 12px; color: #94a3b8; }
-    .w-btn { width: 100%; max-width: 345px; border: none; border-radius: 15px; padding: 16px; font-size: 16px; font-weight: 800; color: #050914; background: linear-gradient(135deg, #f59e0b, #fbbf24); box-shadow: 0 8px 24px rgba(245,158,11,0.35); cursor: pointer; transition: transform 0.15s ease; }
+    .w-brand { font-size: 28px; font-weight: 900; letter-spacing: 2px; background: linear-gradient(90deg, #bf953f, #fcf6ba, #d4af37); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 4px; }
+    .w-divider { font-size: 12px; color: #d4af37; letter-spacing: 4px; margin: 4px 0 10px; opacity: 0.85; }
+    .w-hello { font-size: 18px; font-weight: 700; color: #ffffff; margin-bottom: 4px; }
+    .w-sub { font-size: 12.5px; color: #a1a1aa; margin-bottom: 18px; }
+    .w-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+    .w-box { background: rgba(255,255,255,0.03); border: 1px solid rgba(212,175,55,0.22); border-radius: 14px; padding: 12px 10px; text-align: center; }
+    .w-box .ic { font-size: 20px; margin-bottom: 4px; }
+    .w-box b { display: block; font-size: 12.5px; color: #fef3c7; margin-bottom: 2px; }
+    .w-box span { font-size: 11.5px; color: #a1a1aa; }
+    .w-btn { position: relative; overflow: hidden; width: 100%; border: none; border-radius: 14px; padding: 15px; font-size: 15px; font-weight: 800; color: #090b10; background: linear-gradient(135deg, #bf953f, #fcf6ba, #d4af37); box-shadow: 0 8px 24px rgba(212,175,55,0.35); cursor: pointer; transition: transform 0.15s ease; }
     .w-btn:active { transform: scale(0.97); }
+    .w-btn::after { content: ""; position: absolute; top: 0; left: -100%; width: 60%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.55), transparent); animation: wShine 2.6s infinite; }
+    @keyframes wShine { 0% { left: -100%; } 60%, 100% { left: 150%; } }
   `;
   document.head.appendChild(style);
 
@@ -37,38 +39,26 @@
 
   root.innerHTML = `
     <div class="w-overlay" id="welcomeScreen">
-      <div class="w-glow-bg"></div>
-      <div class="w-ring">
-        <div class="w-logo">
-          <img src="logo.png" alt="Logo" onerror="this.style.display='none';document.getElementById('wFallbackSvg').style.display='block';" />
-          <svg id="wFallbackSvg" style="display:none;" width="52" height="52" viewBox="0 0 24 24" fill="none">
-            <path d="M13 2L4 14h7l-1 8 10-12h-7l0-8z" fill="#fbbf24" stroke="#fef3c7" stroke-width="1.2" stroke-linejoin="round"/>
-          </svg>
+      <div class="w-frame">
+        <div class="w-crest">✦ FZ ERAN ROYAL CLUB ✦</div>
+        <div class="w-ring">
+          <div class="w-logo">
+            <img src="logo.png" alt="Logo" onerror="this.style.display='none';document.getElementById('wFallbackSvg').style.display='flex';" />
+            <div id="wFallbackSvg" style="display:none;align-items:center;justify-content:center;font-weight:900;font-size:26px;color:#fcf6ba;letter-spacing:1px;">FZ</div>
+          </div>
         </div>
+        <div class="w-brand">FZ ERAN</div>
+        <div class="w-divider">━━ ✦ ━━</div>
+        <div class="w-hello">স্বাগতম, <span id="wUserName"></span></div>
+        <div class="w-sub">নিরাপদে কাজ করে প্রতিদিন আয় করুন</div>
+        <div class="w-grid">
+          <div class="w-box"><div class="ic">🎁</div><b>ডেইলি বোনাস</b><span>+৳১০ টাকা</span></div>
+          <div class="w-box"><div class="ic">🎡</div><b>লাকি স্পিন</b><span>+৳২০ পর্যন্ত</span></div>
+          <div class="w-box"><div class="ic">📺</div><b>অ্যাডস আয়</b><span>+৳৫ টাকা</span></div>
+          <div class="w-box"><div class="ic">💳</div><b>বিকাশ / নগদ</b><span>সর্বনিম্ন ৳৩০০</span></div>
+        </div>
+        <button class="w-btn" id="wEnterBtn">🚀 কাজ শুরু করুন →</button>
       </div>
-      <div class="w-pill">● OFFICIAL EARNING APP</div>
-      <div class="w-brand">FZ ERAN</div>
-      <div class="w-hello">স্বাগতম, <span id="wUserName"></span>! 👋</div>
-      <div class="w-sub">সহজ কাজ করে প্রতিদিন টাকা আয় করুন</div>
-      <div class="w-cards">
-        <div class="w-card">
-          <div class="w-ic">🎁</div>
-          <div><b>ডেইলি ফ্রি বোনাস</b><span>প্রতি ২৪ ঘণ্টায় +১০ টাকা</span></div>
-        </div>
-        <div class="w-card">
-          <div class="w-ic">🎡</div>
-          <div><b>লাকি স্পিন হুইল</b><span>প্রতি স্পিনে +২০ টাকা পর্যন্ত</span></div>
-        </div>
-        <div class="w-card">
-          <div class="w-ic">📺</div>
-          <div><b>বিজ্ঞাপন দেখে আয়</b><span>প্রতি বিজ্ঞাপনে +৫ টাকা</span></div>
-        </div>
-        <div class="w-card">
-          <div class="w-ic">💳</div>
-          <div><b>বিকাশ ও নগদ পেমেন্ট</b><span>সর্বনিম্ন Withdraw: ৳৩০০ টাকা</span></div>
-        </div>
-      </div>
-      <button class="w-btn" id="wEnterBtn">🚀 কাজ শুরু করুন →</button>
     </div>
   `;
 
